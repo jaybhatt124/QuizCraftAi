@@ -1,0 +1,86 @@
+{
+  "name": "QuizAttempt",
+  "type": "object",
+  "properties": {
+    "quiz_id": {
+      "type": "string",
+      "description": "ID of the quiz attempted"
+    },
+    "student_name": {
+      "type": "string",
+      "description": "Name of the student taking the quiz"
+    },
+    "quiz_owner_email": {
+      "type": "string",
+      "description": "Email of the user who created the quiz"
+    },
+    "user_answers": {
+      "type": "array",
+      "description": "User's answers",
+      "items": {
+        "type": "object",
+        "properties": {
+          "question_index": {
+            "type": "number"
+          },
+          "answer": {
+            "type": "string"
+          },
+          "is_correct": {
+            "type": "boolean"
+          },
+          "time_spent": {
+            "type": "number"
+          }
+        }
+      }
+    },
+    "score": {
+      "type": "number",
+      "description": "Score as percentage"
+    },
+    "total_time": {
+      "type": "number",
+      "description": "Total time taken in seconds"
+    },
+    "completed_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When the quiz was completed"
+    }
+  },
+  "required": [
+    "quiz_id",
+    "user_answers",
+    "score"
+  ],
+  "rls": {
+    "read": {
+      "$or": [
+        {
+          "created_by": "{{user.email}}"
+        },
+        {
+          "quiz_owner_email": "{{user.email}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "write": {
+      "$or": [
+        {
+          "created_by": "{{user.email}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    }
+  }
+}

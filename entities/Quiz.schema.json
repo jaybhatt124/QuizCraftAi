@@ -1,0 +1,99 @@
+{
+  "name": "Quiz",
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string",
+      "description": "Quiz title"
+    },
+    "description": {
+      "type": "string",
+      "description": "Quiz description"
+    },
+    "subject": {
+      "type": "string",
+      "enum": [
+        "mathematics",
+        "science",
+        "history",
+        "literature",
+        "geography",
+        "technology",
+        "business",
+        "custom"
+      ],
+      "default": "custom",
+      "description": "Quiz subject category"
+    },
+    "difficulty": {
+      "type": "string",
+      "enum": [
+        "easy",
+        "medium",
+        "hard"
+      ],
+      "default": "medium",
+      "description": "Quiz difficulty level"
+    },
+    "time_limit": {
+      "type": "number",
+      "description": "Time limit in minutes (0 for no limit)"
+    },
+    "questions": {
+      "type": "array",
+      "description": "Quiz questions",
+      "items": {
+        "type": "object",
+        "properties": {
+          "question": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "multiple_choice",
+              "true_false",
+              "short_answer"
+            ]
+          },
+          "options": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "correct_answer": {
+            "type": "string"
+          },
+          "explanation": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "is_public": {
+      "type": "boolean",
+      "default": true,
+      "description": "Whether the quiz is publicly available"
+    },
+    "is_active": {
+      "type": "boolean",
+      "default": true,
+      "description": "Whether the quiz is currently active/open"
+    },
+    "start_date": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When the quiz becomes available"
+    },
+    "end_date": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When the quiz becomes unavailable"
+    }
+  },
+  "required": [
+    "title",
+    "questions"
+  ]
+}
